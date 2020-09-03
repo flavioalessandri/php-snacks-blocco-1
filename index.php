@@ -48,10 +48,10 @@ $mail = $_GET["mail"];
 $age = $_GET["age"];
 
 $nameLength = strlen($name);
-$dotPos = strpos($mail,".");
+$mailVerify = strpos($mail,".") !== false && strpos($mail,"@"); !== false;
 $netPos = strpos($mail,"@");
 
-if($nameLength>3 && $dotPos > 0 && $netPos > 0 && is_nan($age)==false){
+if($nameLength>3 && $mailVerify && is_numeric($age)){
   echo "Accesso riuscito";
 } else{
   echo "Accesso Negato";
@@ -62,21 +62,17 @@ if($nameLength>3 && $dotPos > 0 && $netPos > 0 && is_nan($age)==false){
  <?php
  // Creare un array con 15 numeri casuali, tenendo conto che l'array non dovrà contenere lo stesso numero più di una volta
 
- $i = 0;
- $duplicate = false;
  $newArray=[];
 
- while( $duplicate == false){
+ while(count($newArray) <= 15){
+
    $varNum = rand(1,80);
 
-   if(count($newArray) <= 15){
-     if (in_array($varNum, $newArray)==false) {
+     if (!in_array($varNum, $newArray)) {
+
        $newArray[] = $varNum;
      }
-   }
 
-   else{ $duplicate = true; }
-   $i++;
  };
 
  echo "<br>";
